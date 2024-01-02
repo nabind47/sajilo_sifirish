@@ -29,6 +29,7 @@ const VerifyOtp = () => {
   const { toast } = useToast();
   const { userId } = useParams();
   const navigate = useNavigate();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {

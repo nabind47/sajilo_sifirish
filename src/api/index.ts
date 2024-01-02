@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 
-const API_BASE_URL = "http://localhost:8000";
+export const API_BASE_URL = "http://localhost:8000";
 
 // Regular instance with application/json content type
 export const publicApi = axios.create({
