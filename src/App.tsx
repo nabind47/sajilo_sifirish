@@ -1,51 +1,34 @@
-import { Navigate, Outlet, Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
-import Dashboard from "./pages/Dashboard";
-import Home from "./pages/Home";
-import { Signin } from "./pages/Signin";
-import { SignupForm } from "./pages/Signup";
+import { PrivateRoutes, PublicRoutes } from "./layouts";
+import { privateRoutes, publicRoutes } from "./routes";
 
-import ImageUplaod from "./components/ImageUpload";
 import { Toaster } from "./components/ui/toaster";
-import { useAuth } from "./context/useAuth";
-import VerifyOtp from "./pages/VerifyOtp";
-
-import Layout from "./pages/Layout";
+import NotFound from "./pages/NotFound";
 
 const App = () => {
   return (
     <>
       <Toaster />
       <Routes>
-        <Route element={<Layout />}>
-          <Route path="/signin" element={<Signin />} />
-          <Route path="/signup" element={<SignupForm />} />
-          <Route path="/abc" element={<ImageUplaod />} />
-          <Route path="/:userId/verify" element={<VerifyOtp />} />
-
-          <Route element={<RequireAuth />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-          </Route>
-        </Route>
+        {publicRoutes.map((route) => (
+          <Route
+            key={route.path}
+            path={route.path}
+            element={<PublicRoutes>{route.element}</PublicRoutes>}
+          />
+        ))}
+        {privateRoutes.map((route) => (
+          <Route
+            key={route.path}
+            path={route.path}
+            element={<PrivateRoutes>{route.element}</PrivateRoutes>}
+          />
+        ))}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );
 };
-
-function RequireAuth() {
-  let { accessToken } = useAuth();
-  let location = useLocation();
-
-  if (!accessToken) {
-    // Redirect them to the /login page, but save the current location they were
-    // trying to go to when they were redirected. This allows us to send them
-    // along to that page after they login, which is a nicer user experience
-    // than dropping them off on the home page.
-    return <Navigate to="/signin" state={{ from: location }} />;
-  }
-
-  return <Outlet />;
-}
 
 export default App;

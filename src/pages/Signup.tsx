@@ -36,7 +36,7 @@ const formSchema = z.object({
   }),
 });
 
-export const SignupForm = () => {
+const Signup = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -129,3 +129,5 @@ export const SignupForm = () => {
     </Form>
   );
 };
+
+export default Signup;

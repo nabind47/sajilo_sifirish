@@ -19,7 +19,7 @@ import { Input } from "@/components/ui/input";
 
 import { publicApi } from "@/api";
 
-import { useAuth } from "@/context/useAuth";
+import useAuth from "@/context/useAuth";
 import { useToast } from "../components/ui/use-toast";
 
 const formSchema = z.object({
@@ -31,7 +31,7 @@ const formSchema = z.object({
   }),
 });
 
-export const Signin = () => {
+const Signin = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const { setAuthData } = useAuth();
@@ -98,3 +98,4 @@ export const Signin = () => {
     </Form>
   );
 };
+export default Signin;
