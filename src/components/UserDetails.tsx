@@ -1,6 +1,7 @@
 import { API_BASE_URL } from "@/api";
 import { ProfileUpload } from "@/dialog/ProfileUpload";
 import { Edit, Mail, Phone, Verified } from "lucide-react";
+import { Card, CardContent, CardFooter, CardHeader } from "./ui/card";
 
 interface Certificate {
   _id: string;
@@ -42,19 +43,25 @@ const CertificateItem: React.FC<Certificate> = ({
   _id,
   title = "Birth Certificates",
 }) => (
-  <div className="border hover:bg-slate-50 cursor-pointer transistion duration-300 ease-in-out rounded-lg p-4 mb-4">
-    <div className="flex items-center justify-between">
+  <Card>
+    <CardHeader className="flex flex-row items-center justify-between">
       <h2 className="text-lg font-semibold mb-2">{title}</h2>
       <Edit className="h-4 w-4 hover:scale-105 transistion duration-300 ease-in-out" />
-    </div>
+    </CardHeader>
+    {/* <div className="flex items-center justify-between">
+    </div> */}
 
-    <p>{fullName}</p>
-    <p>{_id}</p>
-    <p>{createdAt}</p>
-    <p className={`mt-2 ${isVerified ? "text-green-600" : "text-red-600"}`}>
-      {isVerified ? "Verified" : "Not Verified"}
-    </p>
-  </div>
+    <CardContent>
+      <p>{fullName}</p>
+      <p>{_id}</p>
+      <p>{createdAt}</p>
+    </CardContent>
+    <CardFooter>
+      <p className={`mt-2 ${isVerified ? "text-green-600" : "text-red-600"}`}>
+        {isVerified ? "Verified" : "Not Verified"}
+      </p>
+    </CardFooter>
+  </Card>
 );
 
 const UserDetails: React.FC<UserDetailsProps> = ({ user }) => {

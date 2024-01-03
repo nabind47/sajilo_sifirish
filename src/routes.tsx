@@ -1,3 +1,4 @@
+import ImageUpload from "./components/ImageUpload";
 import { Dashboard, Home, Signin, Signup, VerifyOtp } from "./pages";
 
 export const publicRoutes = [
@@ -8,5 +9,6 @@ export const publicRoutes = [
 
 export const privateRoutes = [
   { path: "/", element: <Home /> },
+  { path: "/abc", element: <ImageUpload /> },
   { path: "/dashboard", element: <Dashboard /> },
 ];

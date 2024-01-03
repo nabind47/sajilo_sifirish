@@ -1,4 +1,7 @@
-import { privateApi } from "@/api";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Edit } from "lucide-react";
+import { useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -9,10 +12,9 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
+
+import { privateApi } from "@/api";
 import useAuth from "@/context/useAuth";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Edit } from "lucide-react";
-import { useState } from "react";
 
 export function ProfileUpload() {
   const [profileImage, setProfileImage] = useState(null);

@@ -1,6 +1,7 @@
 // @ts-nocheck
-import axios from "axios";
+import { privateApi } from "@/api";
 import React, { useState } from "react";
+import { Input } from "./ui/input";
 
 interface FormDataState {
   transactionImage: File | null;
@@ -9,6 +10,9 @@ interface FormDataState {
 }
 
 const ImageUpload: React.FC = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+
   const [formData, setFormData] = useState<FormDataState>({
     transactionImage: null,
     front: null,
@@ -23,6 +27,8 @@ const ImageUpload: React.FC = () => {
     formDataToSend.append("transactionImage", formData.transactionImage!);
     formDataToSend.append("front", formData.front!);
     formDataToSend.append("back", formData.back!);
+    formDataToSend.append("name", name);
+    formDataToSend.append("email", email);
 
     // Log the updated formData
     setFormData((prevFormData) => {
@@ -31,8 +37,8 @@ const ImageUpload: React.FC = () => {
 
     try {
       // Make a POST request to your server
-      const response = await axios.post(
-        "http://localhost:8000/users/abc",
+      const response = await privateApi.post(
+        "birth-certs/abc",
         formDataToSend,
         {
           headers: { "Content-Type": "application/form-data" },
@@ -61,15 +67,25 @@ const ImageUpload: React.FC = () => {
     <div>
       <h2>Birth Certificate Upload</h2>
       <form onSubmit={handleSubmit}>
-        <input
+        <Input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <Input
+          type="text"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <Input
           type="file"
           onChange={(e) => handleFileChange("transactionImage", e.target.files)}
         />
-        <input
+        <Input
           type="file"
           onChange={(e) => handleFileChange("front", e.target.files)}
         />
-        <input
+        <Input
           type="file"
           onChange={(e) => handleFileChange("back", e.target.files)}
         />
